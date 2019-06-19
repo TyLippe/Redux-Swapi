@@ -1,10 +1,10 @@
 import { FETCHING, SUCCESS, FAILURE } from "../actions";
 
 const initialState = {
-  characters: []
+  characters: [],
   // Array characters, Boolean fetching, null error.
-  isLoading: false,
-  error: ''
+  fetching: false,
+  error: null
 };
 export const charsReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -15,19 +15,19 @@ export const charsReducer = (state = initialState, action) => {
       return {
         ...state,
         error: '',
-        isLoading: true
+        fetching: true
       };
     case SUCCESS:
       return {
         ...state,
-        isLoading: false,
-        characters: []
+        fetching: false,
+        characters: [...state.characters, ...action.payload]
       }
     case FAILURE:
       return {
         ...state,
-        isLoading: false,
-        error: 'Something is not working!"
+        fetching: false,
+        error: 'Something is not working!'
       }
     default:
       return state;
